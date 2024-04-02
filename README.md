@@ -1,6 +1,6 @@
 # 项目介绍
 
-本项目是一个仿b站的小程序，是自己写的课设。
+本项目是一个仿b站的小程序，后端是自己写的课设。
 
 使用到的技术有：
 * 后端
@@ -36,19 +36,10 @@
 ```
 ![image](https://github.com/heshixing/hbbili/assets/102710734/71d53149-97cc-4cbc-8157-384ec0717c1a)
 
-
-*** ***
-
-*** ***
-
 ***
 
 ![image](https://github.com/heshixing/hbbili/assets/102710734/a7f6a1f6-3ad4-4634-8fd0-895ae933de42)
 
-
-***
-
-***
 
 ***
 
@@ -57,16 +48,27 @@
 
 ***
 
-***
-
-***
-
 ![image](https://github.com/heshixing/hbbili/assets/102710734/2e1b1c69-6ecf-4857-8ba8-9f9b49c972ae)
 
 
 ***
+```text
+uniapp没有找到合适的弹幕组件，下面是我用vue2+Dplayer模拟的实时弹幕推送以及记录在线人数
+```
+
+![image](https://github.com/heshixing/hbbili/assets/102710734/49a0ea26-264d-483a-995c-24a01dbd6152)
+
 
 ***
 
+![image](https://github.com/heshixing/hbbili/assets/102710734/183ee35d-f2b1-4c94-9647-8cac8e68a0ab)
+
+
 ***
+
+![image](https://github.com/heshixing/hbbili/assets/102710734/e3c8cd91-32a7-4a05-a1d4-1b39aba307ea)
+
+
+***
+![image](https://github.com/heshixing/hbbili/assets/102710734/4d6df7c4-91a4-4a71-8d0d-e21e90d64fb4)
 
