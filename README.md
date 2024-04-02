@@ -1,12 +1,12 @@
 # 项目介绍
 
-本项目是一个前后端分离的弹幕视频网站，核心功能是观看视频并发送弹幕进行交流。
+本项目是一个仿b站的小程序，是自己写的课设。
 
 使用到的技术有：
 * 后端
   * SpringBoot
   * MySQL
-  * MyBatis-Plus
+  * MyBatis
   * RabbitMQ
   * Redis
   * WebSocket
