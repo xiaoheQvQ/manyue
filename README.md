@@ -34,24 +34,17 @@
 ```text
 这里展示的同学写的uniapp前端，我前端不太行
 ```
+![image](https://github.com/heshixing/hbbili/assets/102710734/71d53149-97cc-4cbc-8157-384ec0717c1a)
 
-![1712042640481](C:\Users\何世兴\AppData\Roaming\Typora\typora-user-images\1712042640481.png)
-
-*** ***
 
 *** ***
 
-***
-
-![1712042672732](C:\Users\何世兴\AppData\Roaming\Typora\typora-user-images\1712042672732.png)
+*** ***
 
 ***
 
-***
+![image](https://github.com/heshixing/hbbili/assets/102710734/a7f6a1f6-3ad4-4634-8fd0-895ae933de42)
 
-***
-
-![1712042688036](C:\Users\何世兴\AppData\Roaming\Typora\typora-user-images\1712042688036.png)
 
 ***
 
@@ -59,7 +52,17 @@
 
 ***
 
-![1712042705827](C:\Users\何世兴\AppData\Roaming\Typora\typora-user-images\1712042705827.png)
+![image](https://github.com/heshixing/hbbili/assets/102710734/a0004210-415f-40db-97e7-0d15fe0ce2c0)
+
+
+***
+
+***
+
+***
+
+![image](https://github.com/heshixing/hbbili/assets/102710734/2e1b1c69-6ecf-4857-8ba8-9f9b49c972ae)
+
 
 ***
 
