@@ -32,7 +32,7 @@
 # 页面展示
 
 ```text
-这里展示的同学写的uniapp前端，我前端不太行
+这里展示的uniapp前端
 ```
 ![image](https://github.com/heshixing/hbbili/assets/102710734/71d53149-97cc-4cbc-8157-384ec0717c1a)
 
