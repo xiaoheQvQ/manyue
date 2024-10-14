@@ -21,11 +21,11 @@ public class AliyunOSSUtil {
 
 
     // 读取配置
-    private static String endpoint = "oss-cn-beijing.aliyuncs.com"; //111
-    //private static String endpoint = "https://oss-cn-beijing.aliyuncs.com";
-    private static String accessKeyId = "LTAI5tP58pfiyc6HjEjynpUU";
-    private static String accessKeySecret = "f4E3mZlVuEPwqC40w3pHmYlIwtFH9o";
-    private static String bucketName = "hsx-hb";
+    private static String endpoint = ""; //111
+    //private static String endpoint = "";
+    private static String accessKeyId = "";
+    private static String accessKeySecret = "";
+    private static String bucketName = "";
 
     /**
      * 创建存储空间
