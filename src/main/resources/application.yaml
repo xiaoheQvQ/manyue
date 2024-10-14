@@ -1,0 +1,70 @@
+# 端口
+server:
+  port: 8066
+
+spring:
+  # 解决springboot2.6.7版本以上整合swagger的问题
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    encoding: UTF-8 #编码
+    suffix: .html #模板后缀
+    mode: HTML #模板
+  # database
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 
+    url: jdbc:mysql://localhost:3306/
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      auto-commit: true
+      connection-timeout: 30000
+      minimum-idle: 5
+      maximum-pool-size: 15
+      idle-timeout: 600000
+      pool-name: DatebookHikariCP
+      max-lifetime: 28740000
+      connection-test-query: SELECT 1
+
+  #redis
+  redis:
+    host: 
+    port: 6379
+    timeout: 5000
+    password: 
+
+  #上传文件配置
+  servlet:
+    multipart:
+      max-file-size: 100MB # 系统默认最大上传大小
+      max-request-size: 100MB
+      enabled: true
+  elasticsearch:
+    uris: 
+
+# mybatis
+mybatis:
+  mapper-locations: classpath:mapper/*xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.hsx.pojo
+
+aliyun:
+  oss:
+    endpoint: 
+    keyid: 
+    keysecret: 
+    bucketname: 
+
+
+#rocketmq
+rocketmq:
+  name:
+    server:
+      address: 
+

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hsx.mapper.VideoMapper">
+
+    <select id="getVideoByVideoId" parameterType="java.lang.Long" resultType="Video" >
+        select * from t_video where video_id = #{videoId}
+    </select>
+
+
+    <insert id="addVideo" parameterType="Video">
+        insert into t_video(video_id,user_id, videoUrl, imgUrl, title, type, area, description, create_time, update_time)
+            VALUES (#{videoId},#{userId},#{videoUrl},#{imgUrl},#{title},#{type},#{area},#{description},#{createTime},#{updateTime})
+    </insert>
+
+    <delete id="deleteVideoByVideoId" parameterType="java.lang.Long">
+        delete from t_video where video_id = #{videoId}
+    </delete>
+
+    <select id="getVideoLikeByVideoIdAndUserId" resultType="VideoLike">
+        select * from t_video_like where user_id = #{user_id} and video_id = #{video_id}
+    </select>
+
+    <delete id="deleteVideoLikeByVideoIdAndUserId">
+        delete from t_video_like where user_id = #{user_id} and video_id = #{video_id}
+    </delete>
+
+    <insert id="addVideoLike" parameterType="VideoLike">
+        insert into t_video_like(user_id, video_id, create_time)
+            values ( #{userId},#{videoId},#{createTime})
+    </insert>
+
+    <select id="getVideoLikes" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select count(1) from t_video_like where video_id = #{videoId}
+    </select>
+
+    <insert id="insertVideo" parameterType="Video" >
+        insert into t_video(video_id,user_id, videoUrl, imgUrl, title, type, duration, area, description, create_time, update_time)
+            VALUES (#{video_id},#{userId},#{videoUrl},#{imgUrl},#{title},#{type},#{duration},#{area},#{description},#{createTime},#{updateTime})
+    </insert>
+
+    <select id="getVideoCollectionByVideoIdAndUserId" resultType="VideoCollection">
+        select * from t_video_collection where user_id = #{user_id} and video_id = #{video_id}
+    </select>
+
+    <delete id="deleteVideoCollection">
+        delete from t_video_collection where user_id = #{user_id} and video_id = #{video_id}
+    </delete>
+
+    <insert id="addVideoCollection" parameterType="VideoCollection">
+        insert into t_video_collection(video_id, user_id, group_id, create_time)
+        values (#{videoId},#{userId},#{groupId},#{createTime})
+    </insert>
+
+    <select id="getVideoCollectionsByVideoId" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select count(1) from t_video_collection where video_id = #{videoId}
+    </select>
+
+    <!--获取用户的硬币数量-->
+    <select id="getUserCoinsAmount" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        select amount from t_user_coin where user_id = #{userId}
+    </select>
+
+    <!--查询用户对视频的投币数量-->
+    <select id="getCoinCostByVideoIdAndUserId" resultType="CoinCost">
+        select * from t_coin_cost where video_id = #{video_id} and user_id = #{user_id}
+    </select>
+
+    <!--视频被首次投币的数量-->
+    <insert id="addVideoCoin" parameterType="VideoCoin">
+        insert into t_video_coin(user_id, video_id, amount, create_time)
+        values (#{userId},#{videoId},#{amount},#{createTime})
+    </insert>
+
+    <!--更新视频投币数量-->
+    <update id="updateVideoCoin" parameterType="VideoCoin">
+        update t_video_coin
+        set amount = #{amount}
+        where video_id = #{videoId} and user_id = #{userId}
+    </update>
+
+    <!--获取视频的投币数量-->
+    <select id="getVideoCoinsAmount" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        select sum(amount) from t_video_coin where video_id = #{videoId}
+    </select>
+
+    <!--增加投币记录-->
+    <insert id="addCoinCost" parameterType="CoinCost">
+        insert into t_coin_cost (user_id, cost, video_id, create_time)
+            VALUES (#{userId},#{cost},#{videoId},#{createTime})
+    </insert>
+
+    <!--获取硬币流水记录-->
+    <select id="getVideoCoinByVideoIdAndUserId" resultType="VideoCoin">
+        select * from t_video_coin where video_id = #{videoId} and user_id = #{userId}
+    </select>
+
+    <select id="getVideoByUserId" parameterType="java.lang.Long" resultType="Video">
+        select * from t_video where user_id = #{userId}
+    </select>
+
+    <!--通过user_id查询用户数量-->
+    <select id="pageCountVideoInfos" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(1)
+        from t_video_collection
+        where user_id = #{userId}
+    </select>
+
+    <select id="pageListVideoInfos" parameterType="java.util.Map" resultType="VideoCollection">
+        select * from t_video_collection where user_id = #{userId} order by create_time desc
+        limit #{start}, #{limit}
+    </select>
+
+    <select id="pageCountVideos" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(1) from t_video
+        where 1=1
+        <if test="area != null and area != '' ">
+            and area = #{area}
+        </if>
+    </select>
+
+    <select id="pageListVideos" parameterType="java.util.Map" resultType="Video">
+        select * from t_video
+        where 1 = 1
+        <if test=" area != null and area != '' ">
+            and area =  #{area}
+        </if>
+        order by id desc
+        limit #{start}, #{limit}
+    </select>
+
+    <select id="getVideoCollectionsByUserId" parameterType="java.lang.Long" resultType="VideoCollection">
+        select * from t_video_collection where user_id = #{userId}
+    </select>
+
+    <select id="getVideoCollectionGroupNames" parameterType="java.lang.Long" resultType="CollectionGroup">
+        select * from t_collection_group where user_id = #{userId}
+    </select>
+
+    <select id="getVideoNum" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        select count(1) from t_video_view where 1=1
+        <if test="videoId != null and videoId != '' ">
+            and video_id = #{videoId}
+        </if>
+    </select>
+
+    <select id="getUserNickByUserId" parameterType="java.lang.Long" resultType="java.lang.String">
+        select nick from t_user_info where user_id = #{userId}
+    </select>
+
+
+    <select id="getVideoByTitle" parameterType="java.lang.String" resultType="Video">
+        select * from t_video where title like concat('%',#{title},'%')
+    </select>
+
+</mapper>

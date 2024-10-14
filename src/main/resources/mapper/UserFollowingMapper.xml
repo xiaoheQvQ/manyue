@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hsx.mapper.UserFollowingMapper">
+
+    <delete id="deleteUserFollowing">
+        delete from t_user_following where user_id = #{user_id} and following_id = #{following_id}
+    </delete>
+
+    <insert id="addUserFollowing" parameterType="UserFollowing">
+        insert into
+            t_user_following
+            (user_id, following_id, type, create_time)
+        values (#{userId},#{followingId},#{type},#{createTime})
+    </insert>
+
+    <select id="getUserFollowings" parameterType="java.lang.Long" resultType="UserFollowing">
+        select * from t_user_following where user_id = #{userId}
+    </select>
+
+    <select id="getUserFans" parameterType="java.lang.Long" resultType="UserFollowing">
+        select * from t_user_following where following_id = #{userId}
+    </select>
+
+    <delete id="deleteUserFollowingGroups" >
+        delete from t_following_group where type = #{type} and user_id = #{userId}
+    </delete>
+
+    <select id="getUserFollowingByTypeAndUserId" resultType="UserFollowing">
+        select * from t_user_following where type = #{type} and user_id = #{user_id}
+    </select>
+
+</mapper>

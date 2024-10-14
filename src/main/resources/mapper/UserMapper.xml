@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hsx.mapper.UserMapper">
+
+    <!--通过电话查找用户-->
+    <select id="getUserByPhone"  parameterType="java.lang.String" resultType="User">
+            select * from t_user where phone = #{phone}
+    </select>
+
+    <!--添加用户-->
+    <insert id="addUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user(phone, email, user_password, salt,create_time)
+            values (#{phone},#{email},#{userPassword},#{salt},#{createTime})
+    </insert>
+
+    <!--添加用户信息-->
+    <insert id="addUserInfo"  parameterType="UserInfo">
+        insert into t_user_info(user_id, nick, avatar, sign, gender, birth, create_time)
+            values (#{userId},#{nick},#{avatar},#{sign},#{gender},#{birth},#{createTime})
+    </insert>
+
+    <!--用户登录-->
+    <select id="login" parameterType="User" resultType="User">
+        select * from t_user where phone = #{phone} and user_password = #{userPassword}
+    </select>
+
+    <!--通过userId获取user-->
+    <select id="getUserById" parameterType="java.lang.Long" resultType="User">
+        select * from t_user where id = #{userId}
+    </select>
+
+
+    <!--修改头像-->
+    <update id="changeAvatar" >
+        update t_user_info
+        set avatar = #{imgUrl} where user_id = #{userId}
+    </update>
+    <!--修改用户信息-->
+    <update id="updateUserInfos" parameterType="UserInfo">
+        update t_user_info
+        set
+        <if test="nick != null and nick != '' ">
+            nick = #{nick},
+        </if>
+        <if test="avatar != null ">
+            avatar = #{avatar},
+        </if>
+        <if test="sign != null">
+            sign = #{sign},
+        </if>
+        <if test="birth != null and birth != '' ">
+            birth = #{birth},
+        </if>
+        <if test="gender != null and gender != '' ">
+            gender = #{gender},
+        </if>
+        update_time = #{updateTime}
+        where
+        user_id = #{userId}
+    </update>
+
+    <!--通过userId查询用户详细信息-->
+    <select id="getUserInfoByUserIds"  resultType="UserInfo">
+        select * from
+        t_user_info
+        where 1 = 1
+        <if test="userIdList != null and userIdList.size > 0">
+            and user_id in
+            <foreach collection="userIdList" item="userId" index="index" open="(" close=")" separator=",">
+                #{userId}
+            </foreach>
+        </if>
+    </select>
+
+    <!--通过nick模糊查询用户数量-->
+    <select id="pageCountUserInfos" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(1)
+        from t_user_info
+        where 1 = 1
+        <if test="nick != null and nick != ''">
+            and nick like '%${nick}%'
+        </if>
+    </select>
+
+
+    <!--通过nick模糊查询用户信息-->
+    <select id="pageListUserInfos" parameterType="java.util.Map" resultType="UserInfo">
+        select *
+        from t_user_info
+        where 1 = 1
+        <if test="nick != null and nick != ''">
+            and nick like '%${nick}%'
+        </if>
+        order by id desc
+        limit #{start}, #{limit}
+    </select>
+
+    <!--删除RefreshToken-->
+    <delete id="deleteRefreshToken">
+        delete from t_refresh_token
+        where refresh_token = #{refreshToken}
+    </delete>
+
+    <!--添加RefreshToken-->
+    <insert id="addRefreshToken">
+        insert into t_refresh_token (user_id, refresh_token, create_time)
+        VALUES (#{userId},#{refreshToken},#{createTime})
+    </insert>
+
+    <!--获取RefreshToken-->
+    <select id="getRefreshTokenDetail" parameterType="java.lang.String" resultType="RefreshTokenDetail">
+        select * from t_refresh_token where refresh_token = #{refreshToken}
+    </select>
+
+    <!--获取用户的硬币数量-->
+    <select id="getUserCoinsAmount" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        select amount from t_user_coin where user_id = #{userId}
+    </select>
+
+    <!--查询用户对视频的投币数量-->
+    <select id="getVideoCoinByVideoIdAndUserId" resultType="VideoCoin">
+        select * from t_video_coin where video_id = #{videoId} and user_id = #{userId}
+    </select>
+
+    <!--更新用户的硬币数量-->
+    <update id="updateUserCoinsAmount">
+        update t_user_coin
+            set amount = #{amount}
+                where user_id = #{userId}
+    </update>
+
+    <!--获取用户的硬币数量-->
+    <select id="getCoinNum" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select amount from t_user_coin where user_id = #{userId}
+    </select>
+
+    <select id="getVideoByUserId" parameterType="java.lang.Long" resultType="Video">
+        select * from t_video where user_id = #{userId}
+    </select>
+
+
+    <insert id="createUserCoin" parameterType="java.lang.Long">
+        insert into t_user_coin(user_id, amount) VALUES (#{userId},#{amount})
+    </insert>
+
+    <insert id="CreateAllCollectionByUserId" parameterType="CollectionGroup">
+        insert into t_collection_group(user_id,name,type,create_time,update_time)
+            values (#{userId},#{name},#{type},#{createTime},#{updateTime})
+    </insert>
+
+    <!--插入聊天记录-->
+    <insert id="saveMsg" parameterType="ChatMsg" useGeneratedKeys="true" keyProperty="id">
+        insert into chat_msg (send_user_id, accept_user_id, msg, sign_flag, create_time)
+            VALUES (#{sendUserId},#{acceptUserId},#{msg},#{signFlag},#{createTime})
+    </insert>
+
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hsx.mapper.CommentMapper">
+
+    <select id="getCommentByVideoId" resultType="com.hsx.pojo.Comment" parameterType="java.lang.Long">
+        SELECT bc.`video_id` as videoId,bc.`parent_id` as parentId,bc.`id`,
+               bc.`user_id` as userId,bc.`content` as content,bc.`create_time` as createTime
+        FROM t_comment bc
+        WHERE bc.`video_id` = #{videoId}
+          AND bc.`comment_status` = 0;
+    </select>
+
+    <select id="getCommentByParentId" resultType="com.hsx.pojo.Comment" parameterType="java.lang.Long">
+        SELECT bc.`video_id` as videoId,bc.`id`,bc.`user_id` AS userId,
+               bc.`content` AS content,
+               bc.`create_time` AS createTime,
+               bc.`parent_id` AS parentId
+        FROM t_comment bc
+        WHERE bc.`parent_id` = #{parentId} AND bc.`comment_status` != 0;
+    </select>
+
+    <select id="getCommentById" parameterType="java.lang.Long" resultType="com.hsx.pojo.Comment">
+        select * from t_comment where id = #{id};
+    </select>
+
+    <insert id="insertComment" parameterType="com.hsx.pojo.Comment">
+        insert into t_comment(create_time, comment_status, parent_id, video_id, user_id, content)
+            VALUES (#{createTime},#{commentStatus},#{parentId},#{videoId},#{userId},#{content})
+    </insert>
+
+
+</mapper>

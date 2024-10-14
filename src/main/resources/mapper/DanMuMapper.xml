@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hsx.mapper.DanMuMapper">
+
+    <insert id="addDanMu" parameterType="Danmu">
+        insert into t_danmu(user_id, video_id, content, danmu_time, create_time)
+        VALUES (#{userID},#{videoId},#{content},#{danmuTime},#{createTime})
+    </insert>
+
+    <select id="getDanMus" parameterType="java.util.Map" resultType="Danmu">
+        select * from t_danmu
+        where video_id = #{videoId}
+        <if test="startDate != null and startDate != ''">
+            and create_time <![CDATA[>=]]> #{startDate}
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            and create_time <![CDATA[<=]]]> #{endDate}
+        </if>
+    </select>
+
+</mapper>

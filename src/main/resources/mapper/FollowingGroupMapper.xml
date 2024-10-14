@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hsx.mapper.FollowingGroupMapper">
+
+    <insert id="createFollowingGroups" >
+        insert into t_following_group (user_id, name, update_time, create_time, type)
+            VALUES
+                <foreach collection="list" item="item" index="index" separator=",">
+                    (#{item.userId},#{item.name},#{item.updateTime},#{item.createTime},#{item.type})
+                </foreach>
+
+    </insert>
+
+    <select id="FollowingGroupMapper" parameterType="java.lang.String" resultType="FollowingGroup">
+        select * from t_following_group where type = #{type}
+    </select>
+
+    <select id="getByType" resultType="FollowingGroup">
+        select * from t_following_group where type = #{type} and user_id = #{user_id}
+    </select>
+
+    <select id="getById" parameterType="java.lang.Long" resultType="FollowingGroup">
+        select * from t_following_group where id = #{groupId}
+    </select>
+
+    <select id="getByUserId" parameterType="java.lang.Long" resultType="FollowingGroup">
+        select * from t_following_group where user_id = #{userId}
+    </select>
+
+    <insert id="addFollowingGroup" parameterType="FollowingGroup" useGeneratedKeys="true" keyProperty="id">
+        insert into t_following_group(user_id, name, type,create_time)
+        values (#{userId},#{name},#{type},#{createTime})
+    </insert>
+
+    <select id="getUserFollowingGroups" parameterType="java.lang.Long" resultType="FollowingGroup">
+        select * from t_following_group where user_id = #{userId}
+    </select>
+
+</mapper>

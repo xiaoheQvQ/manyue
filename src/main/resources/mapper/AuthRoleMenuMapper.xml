@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hsx.mapper.AuthRoleMenuMapper">
+
+    <resultMap id="AuthMenuResultMap" type="com.hsx.auth.AuthRoleMenu">
+        <id column="id" property="id"></id>
+        <id column="role_id" property="roleId"></id>
+        <id column="Menu_id" property="menuId"></id>
+        <association property="authMenu" javaType="com.hsx.auth.AuthMenu">
+            <id column="name" property="name"></id>
+            <id column="code" property="code"></id>
+        </association>
+    </resultMap>
+
+    <select id="getRoleMenusByRoleIds" resultMap="AuthMenuResultMap" parameterType="java.util.Set">
+        select arm.*, am.name, am.code
+            from t_auth_role_menu arm
+                left join t_auth_menu am on arm.menu_id = am.id
+        where arm.role_id in
+        <foreach collection="roleIdSet" item="roleId" index="index" open="(" close=")" separator=",">
+            #{roleId}
+        </foreach>
+    </select>
+
+</mapper>
